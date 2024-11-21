@@ -1,17 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Login Page";
+﻿@* 
+@{
+    ViewBag.Title = "Login Page";
 }
 
-<h1>Login Page</h1>
+<h2>Login Page</h2>
 <p>Please enter your credentials to login.</p>
 
-<form method="get" action="~/Administrator">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
+<form id="loginForm" onsubmit="login(); return false;">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+    </div>
     <button type="submit" class="btn btn-primary">Send</button>
 </form>
 
-<!-- Button to navigate back to the Index Page -->
-<p>
-    <a href="~/" class="btn btn-secondary">Back to Home</a>
-</p>
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div style="color:red;">
+        @ViewBag.ErrorMessage
+    </div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div style="color:green;">
+        @ViewBag.SuccessMessage
+    </div>
+}
+ *@
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post" asp-controller="Home" asp-action="Login">
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.ErrorMessage</div>
+    }
+</form>
