@@ -10,7 +10,7 @@ using TicketingSystemLibrary;
 
 namespace TicketingSystemAPI.Controllers
 {
-    
+    //-------------------------WEBSITE TICKETING SYSTEM------HomeController---------------------
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -40,22 +40,21 @@ namespace TicketingSystemAPI.Controllers
             return Ok(new { ip = ipAddress });
         }
 
-
         [Route("")]
         [Route("Index")]
         public IActionResult Index()
         {
             return View();
         }
-
+        
         [Route("Login")]
         public IActionResult Login()
         {
             return View();
-        }
-        //[HttpPost("Login")]  
+        } 
+        
         [HttpPost]
-        [Route("Login")] // 
+        [Route("Login")] 
         public async Task<IActionResult> Login(string email)
         {
             try
@@ -73,7 +72,10 @@ namespace TicketingSystemAPI.Controllers
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                    return RedirectToAction("Administrator");
+                    return Redirect("/Administrator");
+
+
+
                 }
                 else
                 {
@@ -87,6 +89,7 @@ namespace TicketingSystemAPI.Controllers
                 return View();
             }
         }
+        
         [Route("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -94,11 +97,6 @@ namespace TicketingSystemAPI.Controllers
             return RedirectToAction("Index");
         }
 
-        [Route("Administrator")]
-        public IActionResult Administrator()
-        {
-            return View();
-        }
 
         [Route("Privacy")]
         public IActionResult Privacy()

@@ -24,6 +24,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a id="AdministratorBtn" href="/Administrator" class="btn btn-primary" style="display:none">Administrator</a>
+                        </li>
                     </ul>
 
                     <!-- Login and Logout Buttons -->
@@ -41,6 +44,7 @@
                             <a id="loginBtn" asp-controller="Home" asp-action="Login" class="btn btn-primary ml-auto">Login</a>
                         }
                     </div>
+                    <a id="AdministratorBtn" href="/Administrator" class="btn btn-primary" style="display:none">Administrator</a>
 
                 </div>
             </div>
@@ -109,19 +113,33 @@
     //     }
     // }
     //---------------------------Hide login btn when administractor page shows up--------------------
+    function filterById() {
+        const id = document.getElementById("adminIdInput").value;
+        if (id) {
+            window.location.href = `/Administrator/Details/${id}`;
+        }
+    }
 
+    function resetTable() {
+        window.location.href = "/Administrator"; // Redirect to the page to fetch all administrators.
+    }
     document.addEventListener('DOMContentLoaded', function () {
         // Get the Login and Logout button elements by their IDs
         const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
+        const AdministratorBtn = document.getElementById('AdministratorBtn');
+
 
         function setButtonVisibility(loginVisible, logoutVisible) {
             if (loginBtn) {
                 loginBtn.style.display = loginVisible ? 'block' : 'none';
             }
             if (logoutBtn) {
-                logoutBtn.style.display = logoutVisible ? 'block' : 'none';
+                logoutBtn.style.display = logoutVisible ? 'block' : 'none'; 
+                
             }
+         
+           
         }
 
         // -------------------Index-----------------------------
@@ -131,10 +149,12 @@
         // ------------------Login----------------------------
         if (window.location.pathname.includes('/Login')) {
             setButtonVisibility(false, false);
+            AdministratorBtn.style.display = 'none';
         }
         // -------------------Administrator----------------------------
         if (window.location.pathname.includes('/Administrator')) {
             setButtonVisibility(false, true);
+            AdministratorBtn.style.display = 'block';
         }
     });
 
