@@ -27,10 +27,21 @@
                     </ul>
 
                     <!-- Login and Logout Buttons -->
-                    <div class="d-flex">
+                  @*   <div class="d-flex">
                         <a id="loginBtn" href="/Login" class="btn btn-primary ml-auto">Login</a>
                         <a id="logoutBtn" href="/Logout" class="btn btn-primary ml-auto" style="display:none;">Logout</a>
+                    </div> *@
+                    <div class="d-flex">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a id="logoutBtn" asp-controller="Home" asp-action="Logout" class="btn btn-primary ml-auto">Logout</a>
+                        }
+                        else
+                        {
+                            <a id="loginBtn" asp-controller="Home" asp-action="Login" class="btn btn-primary ml-auto">Login</a>
+                        }
                     </div>
+
                 </div>
             </div>
         </nav>
@@ -53,6 +64,50 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 <script>
+    // async function getGlobalIPAddress() {
+    //     try {
+    //         const response = await fetch('/ip'); // Fetch the global IP from your API
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             return data.ip; // Extract the IP address from the response
+    //         } else {
+    //             throw new Error('Failed to fetch IP address');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching IP address:', error);
+    //         return null;
+    //     }
+    // }
+    // async function login() {
+    //     const email = document.getElementById('email').value;
+    //     const ipAddress = await getGlobalIPAddress(); // Get the IP address dynamically
+
+    //     if (!ipAddress) {
+    //         alert('Could not determine server IP address.');
+    //         return;
+    //     }
+
+    //     try {
+    //         const response = await fetch(`http://${ipAddress}:5000/api/administrators/login`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({ email })
+    //         });
+
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             alert(data.message);
+    //             window.location.href = '/Administrator'; // Redirect to Administrator view
+    //         } else {
+    //             alert('Invalid credentials. Please try again.');
+    //             document.getElementById("loginForm").reset();
+    //         }
+    //     } catch (error) {
+    //         alert('An error occurred while trying to log in. Please try again.');
+    //     }
+    // }
     //---------------------------Hide login btn when administractor page shows up--------------------
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -74,11 +129,11 @@
             setButtonVisibility(true, false);
         }
         // ------------------Login----------------------------
-        if (window.location.pathname.includes('/Home/Login')) {
+        if (window.location.pathname.includes('/Login')) {
             setButtonVisibility(false, false);
         }
         // -------------------Administrator----------------------------
-        if (window.location.pathname.includes('/Home/Administrator')) {
+        if (window.location.pathname.includes('/Administrator')) {
             setButtonVisibility(false, true);
         }
     });
