@@ -1,0 +1,61 @@
+﻿@model List<TicketingSystemLibrary.Models.Administrator>
+
+<h1>Administrator Page</h1>
+<p>This is the administrator dashboard.</p>
+<h4>@ViewBag.ResponseMessage</h4>
+
+<!-- Button to navigate back to the Index Page -->
+<p>
+    <a href="~/Index" class="btn btn-secondary">Back to Home</a>
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create Administrator</a>
+</p>
+
+<!-- Input field to filter by ID -->
+<form asp-action="FilterById" method="get">
+    <label for="adminId">Enter Administrator ID:</label>
+    <input type="number" id="adminId" name="adminId" />
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="button" onclick="resetTable()" class="btn btn-primary">Reset</button>
+</form>
+
+<h1>Administrator List</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No administrators found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+                <tr>
+                    <td>@admin.AdminId</td>
+                    <td>@admin.Name</td>
+                    <td>@admin.Email</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@admin.AdminId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@admin.AdminId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<script>
+    function resetTable() {
+        window.location.href = "/Administrator";
+    }
+</script>
