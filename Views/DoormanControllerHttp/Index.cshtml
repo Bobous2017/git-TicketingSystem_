@@ -1,0 +1,62 @@
+﻿@model List<TicketingSystemLibrary.Models.Doorman>
+
+<h1>Doorman Page</h1>
+<p>This is the doorman dashboard.</p>
+<h4>@ViewBag.ResponseMessage</h4>
+
+<!-- Button to navigate back to the Administrator Page -->
+<p>
+    <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator Page</a>
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create Doorman</a>
+</p>
+
+<!-- Input field to filter by ID -->
+<form asp-action="FilterById" method="get">
+    <label for="doormanId">Enter Doorman ID:</label>
+    <input type="number" id="doormanId" name="doormanId" />
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="button" onclick="resetTableDoorman()" class="btn btn-primary">Reset</button>
+</form>
+
+<h1>Doorman List</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No doormen found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doorman in Model)
+            {
+                <tr>
+                    <td>@doorman.DoormanID</td>
+                    <td>@doorman.Name</td>
+                    <td>@doorman.Email</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@doorman.DoormanID" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@doorman.DoormanID" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    function resetTableDoorman() {
+        window.location.href = "@Url.Action("Index", "DoormanControllerHttp")";
+    }
+</script>

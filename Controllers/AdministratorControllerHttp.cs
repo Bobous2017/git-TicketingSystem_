@@ -30,7 +30,7 @@ namespace TicketingSystem.Controllers
         }
 
         //GET Administrator -> GetAllAdministrators()  via http. GET Endpoint :  api/administrators
-        [HttpGet("")] //-----------------------------------------------------------------------------------------------------Website Tested
+        [HttpGet("")] //-----------------------------------------------------------------------------------------------------Website Tested Ok
         public async Task<IActionResult> Index()
         {
             var response = await _httpClient.GetAsync("api/administrators");
@@ -51,7 +51,7 @@ namespace TicketingSystem.Controllers
         }
 
         // GET: /AdministratorHttp/FilterById
-        [HttpGet("FilterById")]//-------------------------------------------------------------------------------------------Website Tested
+        [HttpGet("FilterById")]//-------------------------------------------------------------------------------------------Website Tested  Ok
         public async Task<IActionResult> FilterById(int adminId)
         {
             var response = await _httpClient.GetAsync($"api/administrators/{adminId}");
@@ -70,7 +70,7 @@ namespace TicketingSystem.Controllers
             return View("Index", new List<Administrator>());
         }
 
-        // GET: /AdministratorHttp/Details/5 //-----------------------------------------------------------------------------Website Tested
+        // GET: /AdministratorHttp/Details/5 //-----------------------------------------------------------------------------Website Tested  Ok
         public async Task<IActionResult> Details(int id)
         {
             var response = await _httpClient.GetAsync($"api/administrators/{id}");
@@ -83,14 +83,14 @@ namespace TicketingSystem.Controllers
             return View("Error");
         }
 
-        // GET: /AdministratorHttp/Create //-------------------------------------------------------------------------------Website Tested
+        // GET: /AdministratorHttp/Create //-------------------------------------------------------------------------------Website Tested   Ok
         [Route("Create")]
         public IActionResult Create()
         {
             return View(); // This will load Create.cshtml view
         }
 
-        // POST: /AdministratorHttp/Create //-------------------------------------------------------------------------------Website Tested
+        // POST: /AdministratorHttp/Create //-------------------------------------------------------------------------------Website Tested  Ok
         [HttpPost("Create")] // Adding the route explicitly
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Administrator admin)
@@ -109,7 +109,7 @@ namespace TicketingSystem.Controllers
             return View(admin);
         }
 
-        // GET: /AdministratorHttp/Edit/5 //-------------------------------------------------------------------------------Website Tested
+        // GET: /AdministratorHttp/Edit/5 //-------------------------------------------------------------------------------Website Tested  Ok
         [HttpGet("Edit/{id}")] // Adding route for GET request to edit an administrator.
         public async Task<IActionResult> Edit(int id)
         {
@@ -123,7 +123,7 @@ namespace TicketingSystem.Controllers
             return View("Error");
         }
 
-        // POST: /AdministratorHttp/Edit/5//-------------------------------------------------------------------------------Website Tested
+        // POST: /AdministratorHttp/Edit/5//-------------------------------------------------------------------------------Website Tested  Ok
         [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Administrator admin)
@@ -147,7 +147,7 @@ namespace TicketingSystem.Controllers
             return View(admin);
         }
 
-        // GET: /AdministratorControllerHttp/Delete/5//---------------------------------------------------------------------Website Tested
+        // GET: /AdministratorControllerHttp/Delete/5//---------------------------------------------------------------------Website Tested Ok
         [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -161,7 +161,7 @@ namespace TicketingSystem.Controllers
             return View("Error");
         }
 
-        // POST: /AdministratorControllerHttp/Delete/5//---------------------------------------------------------------------Website Tested
+        // POST: /AdministratorControllerHttp/Delete/5//---------------------------------------------------------------------Website Tested Ok
         [HttpPost("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

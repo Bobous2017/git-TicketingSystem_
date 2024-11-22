@@ -1,0 +1,64 @@
+﻿@model List<TicketingSystemLibrary.Models.Customer>
+
+<h1>Customer Page</h1>
+<p>This is the customer dashboard.</p>
+<h4>@ViewBag.ResponseMessage</h4>
+
+<!-- Button to navigate back to the Administrator Page -->
+<p>
+    <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator Page</a>
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create Customer</a>
+</p>
+
+<!-- Input field to filter by ID -->
+<form asp-action="FilterById" method="get">
+    <label for="customerId">Enter Customer ID:</label>
+    <input type="number" id="customerId" name="customerId" />
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="button" onclick="resetTableCustomer()" class="btn btn-primary">Reset</button>
+</form>
+
+<h1>Customer List</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No customers found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.CustomerID</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.PhoneNumber</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@customer.CustomerID" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@customer.CustomerID" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    function resetTableCustomer() {
+        window.location.href = "@Url.Action("Index", "CustomerControllerHttp")";
+    }
+</script>

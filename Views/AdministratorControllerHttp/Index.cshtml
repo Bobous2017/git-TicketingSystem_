@@ -1,7 +1,18 @@
 ﻿@model List<TicketingSystemLibrary.Models.Administrator>
+@using System.Security.Claims
+
+@{
+    var user = User as ClaimsPrincipal;
+    var adminName = user?.FindFirst(ClaimTypes.Name)?.Value; // Get the logged-in Admin's name
+}
 
 <h1>Administrator Page</h1>
 <p>This is the administrator dashboard.</p>
+@if (!string.IsNullOrEmpty(adminName))
+{
+    <h4>Welcome, @adminName!</h4> <!-- Display logged-in Admin's name -->
+}
+
 <h4>@ViewBag.ResponseMessage</h4>
 
 <!-- Button to navigate back to the Index Page -->
@@ -11,6 +22,9 @@
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create Administrator</a>
+    <a asp-action="Index" asp-controller="DoormanControllerHttp" class="btn btn-success">-> Doorman</a>
+    <a asp-action="Index" asp-controller="CustomerControllerHttp" class="btn btn-success">-> Customer</a>
+    <a asp-action="Index" asp-controller="EventControllerHttp" class="btn btn-success">-> Event</a>
 </p>
 
 <!-- Input field to filter by ID -->
@@ -18,7 +32,7 @@
     <label for="adminId">Enter Administrator ID:</label>
     <input type="number" id="adminId" name="adminId" />
     <button type="submit" class="btn btn-primary">Filter</button>
-    <button type="button" onclick="resetTable()" class="btn btn-primary">Reset</button>
+    <button type="button" onclick="resetTableAdministrator()" class="btn btn-primary">Reset</button>
 </form>
 
 <h1>Administrator List</h1>
@@ -55,7 +69,7 @@ else
     </table>
 }
 <script>
-    function resetTable() {
+    function resetTableAdministrator() {
         window.location.href = "/Administrator";
     }
 </script>
