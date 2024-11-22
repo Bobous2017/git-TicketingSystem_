@@ -1,34 +1,3 @@
-//var builder = WebApplication.CreateBuilder(args);
-
-//// Add services to the container.
-//builder.Services.AddControllersWithViews();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-//    app.UseHsts();
-//}
-
-//app.UseHttpsRedirection();
-//app.UseStaticFiles();
-//app.UseRouting();
-
-
-//app.UseAuthorization();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//       pattern: "{controller=Home}/{action=Index}/{id?}");
-//});
-
-
-//app.Run();
 
 
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -50,6 +19,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.AccessDeniedPath = "/AccessDenied";
                 });
 
+// ** Add Session Services **
+builder.Services.AddDistributedMemoryCache(); // Use in-memory cache for storing session data
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true; // Security: Make session cookie HTTP-only
+    options.Cookie.IsEssential = true; // Make session cookie essential
+});
+
 // Set the URLs to listen on
 // Configure Kestrel to listen on the specified IP address and port using HTTP
 builder.WebHost.ConfigureKestrel(options =>
@@ -57,32 +35,16 @@ builder.WebHost.ConfigureKestrel(options =>
     options.Listen(IPAddress.Parse(NetworkUtils.GlobalIPAddress()), 5003); // Use HTTP
 });
 
-//builder.WebHost.UseUrls($"https://");
-
-//builder.Services.AddScoped<DatabaseService>();
-//builder.Services.AddScoped<IDataAccess, SqliteDataAccess>();
 // Get database type from configuration
 var databaseType = builder.Configuration.GetSection("DatabaseSettings:DataSourceType").Value;
 Console.WriteLine($"Database Type: {databaseType}");  // Debugging purpose
-
-//switch (databaseType?.ToLower())
-//{
-//    case "sql":
-//        //builder.Services.AddScoped<IDataAccess<HistoryGenerateSql>, SqlDataAccess>(); // Register SQL database service with Scoped lifetime for SQL.
-//        break;
-//    default:
-//        throw new Exception("Invalid data source type in configuration."); // Throw an exception if the data source type is invalid.
-//}
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        //builder.WithOrigins("http://172.16.3.57:5000") // API origin URL (update to match your actual API URL)
-        //       .AllowAnyHeader()
-        //       .AllowAnyMethod()
-        //       .AllowCredentials(); // If you use cookies or any kind of credentials, make sure to include this
+        
         builder.AllowAnyOrigin()    // Allow requests from any origin (e.g., other domains, servers).
                .AllowAnyMethod()    // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
                .AllowAnyHeader();   // Allow all HTTP headers.
@@ -98,11 +60,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseCors("AllowSpecificOrigin");
+app.UseAuthentication(); // Include UseAuthentication() here, which is missing
 app.UseAuthorization();
 
 app.MapControllerRoute(

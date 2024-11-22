@@ -1,0 +1,74 @@
+﻿@model List<TicketingSystemLibrary.Models.Event>
+
+<h1>Event Page</h1>
+<p>This is the event dashboard.</p>
+<h4>@ViewBag.ResponseMessage</h4>
+
+<!-- Button to navigate back to the Index Page -->
+<p>
+    <a href="~/Index" class="btn btn-secondary">Back to Home</a>
+</p>
+
+
+<!-- Button to navigate back to the Administrator Page -->
+<p>
+    <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator Page</a>
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create Event</a>
+</p>
+
+<!-- Input field to filter by ID -->
+<form asp-action="FilterById" method="get">
+    <label for="eventId">Enter Event ID:</label>
+    <input type="number" id="eventId" name="eventId" />
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="button" onclick="resetTableEvent()" class="btn btn-primary">Reset</button>
+</form>
+
+<h1>Event List</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No events found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Admin ID</th>
+                <th>Event Name</th>
+                <th>Event Date</th>
+                <th>Location</th>
+                <th>Max Tickets</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var eventObj in Model)
+            {
+                <tr>
+                    <td>@eventObj.EventID</td>
+                    <td>@eventObj.AdminID</td>
+                    <td>@eventObj.EventName</td>
+                    <td>@eventObj.EventDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@eventObj.Location</td>
+                    <td>@eventObj.MaxTickets</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@eventObj.EventID" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@eventObj.EventID" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    function resetTableEvent() {
+        window.location.href = "@Url.Action("Index", "EventControllerHttp")";
+    }
+</script>

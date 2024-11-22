@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Claims;
 using TicketingSystemLibrary;
+using System.Text.Json;
+using TicketingSystemLibrary.Models;
 
 namespace TicketingSystemAPI.Controllers
 {
@@ -51,31 +53,52 @@ namespace TicketingSystemAPI.Controllers
         public IActionResult Login()
         {
             return View();
-        } 
-        
+        }
+
         [HttpPost]
-        [Route("Login")] 
+        [Route("Login")]
         public async Task<IActionResult> Login(string email)
         {
             try
             {
+                // Make a POST request to your API to authenticate the administrator
                 var response = await _httpClient.PostAsJsonAsync("api/administrators/login", new { email });
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Simulate creating user identity after successful login
-                    var claims = new List<Claim>
+                    // Deserialize the response to get the "admin" object
+                    var responseJson = await response.Content.ReadAsStringAsync();
+                    var jsonDocument = JsonDocument.Parse(responseJson);
+
+                    if (jsonDocument.RootElement.TryGetProperty("admin", out JsonElement adminElement))
                     {
-                        new Claim(ClaimTypes.Name, email)
-                    };
+                        var admin = JsonSerializer.Deserialize<Administrator>(adminElement.ToString());
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        if (admin == null)
+                        {
+                            ViewBag.ErrorMessage = "Invalid credentials. Please try again.";
+                            return View();
+                        }
 
-                    return Redirect("/Administrator");
+                        // Create claims with the user's information
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, admin.Name),
+                            new Claim("AdminID", admin.AdminId.ToString()),  // Custom claim to hold AdminID
+                            new Claim("AdminEmail", admin.Email) // Custom claim to hold Admin Email
+                        };
 
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-
+                        // Redirect to Administrator Dashboard
+                        return Redirect("/Administrator");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Invalid credentials. Please try again.";
+                        return View();
+                    }
                 }
                 else
                 {
@@ -89,7 +112,8 @@ namespace TicketingSystemAPI.Controllers
                 return View();
             }
         }
-        
+
+
         [Route("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -98,6 +122,7 @@ namespace TicketingSystemAPI.Controllers
         }
 
 
+        [Route("")]
         [Route("Privacy")]
         public IActionResult Privacy()
         {
