@@ -3,8 +3,33 @@
     <!-- Button to navigate back to the Administrator Page -->
     <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator</a>
     <a asp-action="TicketsDetails" asp-controller="TicketControllerHttp" class="btn btn-primary">View All Ticket Details</a>
+    <a asp-action="ScanTicketView" asp-controller="TicketControllerHttp" class="btn btn-primary">View Tickets Scaned</a>
 </p>
 <h1>All Tickets</h1>
+<!-- Filter Section -->
+<form method="get" id="filterForm">
+    <div class="form-group">
+        <label for="isUsedFilter">Filter Tickets:</label>
+        <select id="isUsedFilter" name="isUsedFilter" class="form-control" style="width: 200px; display: inline-block;">
+            <option value="all">All Tickets</option>
+            <option value="used">Used Tickets</option>
+            <option value="unused">Unused Tickets</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+@{
+    // Get the value from the query string to filter tickets
+    var filter = ViewContext.HttpContext.Request.Query["isUsedFilter"].ToString();
+    if (filter == "used")
+    {
+        <p>Tickets Used already</p>
+    }
+    else if (filter == "unused")
+    {
+        <p>Tickets UnUsed</p>
+    }
+}
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -21,25 +46,44 @@
     <tbody>
         @foreach (var ticket in Model.OrderByDescending(t => t.TicketID)) // Sort the tickets in descending order
         {
-            <tr>
-                <td>@ticket.TicketID</td>
-                <td>@ticket.CustomerID</td>
-                <td>@ticket.EventID</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(ticket.QRCode))
-                    {
-                        <img src="data:image/png;base64,@ticket.QRCode" alt="QR Code" style="width: 100px; height: 100px;" />
-                    }
-                    else
-                    {
-                        <span>N/A</span>
-                    }
-                </td>
-                <td>@ticket.PurchaseDate</td>
-                <td>@ticket.IsUsed</td>
-                <td>@ticket.AuthCode</td>
-                <td>@ticket.EventName</td>
-            </tr>
+            bool showTicket = false;
+
+
+            if (filter == "used" && ticket.IsUsed.GetValueOrDefault()) // Check for "used" tickets
+            {
+                showTicket = true;
+            }
+            else if (filter == "unused" && !ticket.IsUsed.GetValueOrDefault()) // Check for "unused" tickets
+            {
+                showTicket = true;
+            }
+            else if (filter == "all" || string.IsNullOrEmpty(filter)) // Show all if filter is not specified
+            {
+                showTicket = true;
+            }
+
+            if (showTicket)
+            {
+                <tr>
+                    <td>@ticket.TicketID</td>
+                    <td>@ticket.CustomerID</td>
+                    <td>@ticket.EventID</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(ticket.QRCode))
+                        {
+                            <img src="data:image/png;base64,@ticket.QRCode" alt="QR Code" style="width: 100px; height: 100px;" />
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </td>
+                    <td>@ticket.PurchaseDate</td>
+                    <td>@(ticket.IsUsed.HasValue && ticket.IsUsed.Value ? "Yes" : "No")</td> <!-- Fixed nullable bool -->
+                    <td>@ticket.AuthCode</td>
+                    @* <td>@ticket.EventName</td> *@
+                </tr>
+            }
         }
     </tbody>
 </table>
