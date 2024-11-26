@@ -3,37 +3,22 @@
 }
 
 
+@model List<TicketingSystemLibrary.Models.Event>
 
-@* 
-
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header text-center">
-                    <h2>Tickecting System</h2>
+<h2>Events</h2>
+<div class="events-list">
+    <ul>
+        @foreach (var eventObj in Model)
+        {
+            <li>
+                <div>
+                    <strong>@eventObj.EventName</strong> <br />
+                    Date: @eventObj.EventDate.ToString("yyyy-MM-dd") <br />
+                    Location: @eventObj.Location <br />
+                    <!-- Buy Ticket Button -->
+                    <a asp-controller="TicketControllerHttp" asp-action="Create" asp-route-eventId="@eventObj.EventID" class="btn btn-success">Buy Ticket</a>
                 </div>
-                <div class="card-body">
-                    <form asp-action="Register" method="post">
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                </div>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required />
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <input type="submit" value="Register" class="btn btn-primary btn-lg" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+            </li>
+        }
+    </ul>
 </div>
-<footer>
-    © 2024 - Fun_with_Flag - <a href="#">Privacy</a>
-</footer> *@
