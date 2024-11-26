@@ -191,6 +191,34 @@ namespace TicketingSystem.Controllers
         }
 
 
+        [HttpGet("ScanTicketView")]  //---------------------Tickets Ticket Detail--------------Website Tested  Ok
+        public async Task<IActionResult> ScanTicketView()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("api/tickets/scaned");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var scanTicketView = JsonSerializer.Deserialize<List<ScanTicketView>>(json);
+
+                    if (scanTicketView != null)
+                    {
+                        return View(scanTicketView);
+                    }
+                }
+
+                return View(new List<ScanTicketView>());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
 
         [Route("Success")]   //------------------------------------------------------------------Website Tested  Ok
         public IActionResult Success()

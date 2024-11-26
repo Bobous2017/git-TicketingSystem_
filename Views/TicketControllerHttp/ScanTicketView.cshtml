@@ -1,0 +1,51 @@
+﻿@model List<TicketingSystemLibrary.Models.ScanTicketView>
+
+<p>
+    <!-- Back Button for Navigation -->
+    <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator</a>
+    <a asp-action="Index" asp-controller="TicketControllerHttp" class="btn btn-secondary">Back to Ticket</a>
+</p>
+
+<h1>All Ticket Scan Details</h1>
+
+<!-- Table to display scanned ticket details -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Scan ID</th>
+            <th>Ticket ID</th>
+            <th>Doorman Name</th>
+            <th>Event Name</th>
+            <th>Customer Name</th>
+            <th>Scan Time</th>
+            <th>QR Code</th>
+            <th>Auth Code</th>
+            <th>Is Used</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model.OrderByDescending(t => t.TicketID)) // Sort the tickets in descending order
+        {
+            <tr>
+                <td>@ticket.ScanID</td>
+                <td>@ticket.TicketID</td>
+                <td>@ticket.DoormanName</td>
+                <td>@ticket.EventName</td>
+                <td>@ticket.Name</td>
+                <td>@(ticket.ScanTime.HasValue ? ticket.ScanTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")</td> <!-- Fixed the nullable DateTime -->
+                <td>
+                    @if (!string.IsNullOrEmpty(ticket.QR_Code))
+                    {
+                        <img src="data:image/png;base64,@ticket.QR_Code" alt="QR Code" style="width: 100px; height: 100px;" />
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+                <td>@ticket.AuthCode</td>
+                <td>@(ticket.IsUsed.HasValue && ticket.IsUsed.Value ? "Yes" : "No")</td> <!-- Fixed nullable bool -->
+            </tr>
+        }
+    </tbody>
+</table>
