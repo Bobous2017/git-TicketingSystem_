@@ -9,6 +9,7 @@ using System.Security.Claims;
 using TicketingSystemLibrary;
 using System.Text.Json;
 using TicketingSystemLibrary.Models;
+using System.Text;
 
 namespace TicketingSystemAPI.Controllers
 {
@@ -42,13 +43,39 @@ namespace TicketingSystemAPI.Controllers
             return Ok(new { ip = ipAddress });
         }
 
-        [Route("")]
-        [Route("Index")]
-        public IActionResult Index()
+        [HttpGet("")]
+        [HttpGet("Index")]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                // Fetch all events via the API
+                var response = await _httpClient.GetAsync("api/events");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var events = JsonSerializer.Deserialize<List<Event>>(json);
+
+                    if (events != null)
+                    {
+                        // Pass the model (list of events) to the view
+                        return View(events);
+                    }
+                }
+
+                // If the API call fails or returns nothing, return an empty list to the view
+                return View(new List<Event>());
+            }
+            catch (Exception ex)
+            {
+                // Handle errors (log them, or show an error message)
+                Console.WriteLine($"Error fetching events: {ex.Message}");
+                ViewBag.ErrorMessage = "Unable to load events at the moment.";
+                return View(new List<Event>());
+            }
         }
-        
+
         [Route("Login")]
         public IActionResult Login()
         {
@@ -129,6 +156,6 @@ namespace TicketingSystemAPI.Controllers
             return View();
         }
 
-      
+
     }
 }

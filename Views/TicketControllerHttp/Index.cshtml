@@ -1,0 +1,49 @@
+﻿@model List<TicketingSystemLibrary.Models.Ticket>
+<p>
+    <!-- Button to navigate back to the Administrator Page -->
+    <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator</a>
+    <a asp-action="TicketsDetails" asp-controller="TicketControllerHttp" class="btn btn-primary">View All Ticket Details</a>
+</p>
+<h1>All Tickets</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Customer ID</th>
+            <th>Event ID</th>
+            <th>QR Code</th>
+            <th>Purchase Date</th>
+            <th>Is Used</th>
+            <th>Auth Code</th>
+            <th>EventName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model.OrderByDescending(t => t.TicketID)) // Sort the tickets in descending order
+        {
+            <tr>
+                <td>@ticket.TicketID</td>
+                <td>@ticket.CustomerID</td>
+                <td>@ticket.EventID</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(ticket.QRCode))
+                    {
+                        <img src="data:image/png;base64,@ticket.QRCode" alt="QR Code" style="width: 100px; height: 100px;" />
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+                <td>@ticket.PurchaseDate</td>
+                <td>@ticket.IsUsed</td>
+                <td>@ticket.AuthCode</td>
+                <td>@ticket.EventName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
