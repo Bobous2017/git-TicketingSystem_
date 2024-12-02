@@ -53,11 +53,11 @@
         {
             bool showTicket = false;
 
-            if (filter == "used" && ticket.IsUsed.GetValueOrDefault()) // Check for "used" tickets
+            if (filter == "used" && ticket.IsUsed) // Check for "used" tickets
             {
                 showTicket = true;
             }
-            else if (filter == "unused" && !ticket.IsUsed.GetValueOrDefault()) // Check for "unused" tickets
+            else if (filter == "unused" && !ticket.IsUsed) // Check for "unused" tickets
             {
                 showTicket = true;
             }
@@ -85,7 +85,7 @@
                         }
                     </td>
                     <td>@ticket.PurchaseDate</td>
-                    <td>@(ticket.IsUsed.HasValue && ticket.IsUsed.Value ? "Yes" : "No")</td> <!-- Fixed nullable bool -->
+                    <td>@(ticket.IsUsed && ticket.IsUsed ? "Yes" : "No")</td> <!-- Fixed nullable bool -->
                     <td>@ticket.AuthCode</td>
                 </tr>
             }

@@ -91,6 +91,7 @@ namespace TicketingSystem.Controllers
                 Console.WriteLine($"Email: {ticket.Email}");
                 Console.WriteLine($"PhoneNumber: {ticket.PhoneNumber}");
                 Console.WriteLine($"EventID: {ticket.EventID}");
+                Console.WriteLine($"EventName: {ticket.EventName}");
 
                 if (ModelState.IsValid)
                 {
@@ -98,7 +99,7 @@ namespace TicketingSystem.Controllers
                     string authCode = new Random().Next(100000, 999999).ToString();
                     Console.WriteLine($"Generated AuthCode: {authCode}");
 
-                    string content = $"{ticket.Email} {authCode}\n Tickets \n The rendezvous is now, \n EventName believes you and you will make it. Welcome.";
+                    string content = $"{ticket.Email} {authCode}\n";
 
                     // Generate QR code using the GenerateQRCode class
                     var generateQR = new GenerateQRCode();
@@ -125,20 +126,30 @@ namespace TicketingSystem.Controllers
                     ticket.AuthCode = authCode;
                     ticket.QRCode = qrCodeBase64;
                     ticket.PurchaseDate = DateTime.Now;
-
+                   
+                    
                     // Serialize and send Ticket data to the API
                     var json = JsonSerializer.Serialize(ticket);
                     Console.WriteLine("Serialized Ticket JSON: " + json);
 
                     var contentData = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await _httpClient.PostAsync("api/tickets", contentData);
-
                     Console.WriteLine("API Response Status Code: " + response.StatusCode);
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("API Response Content: " + responseContent);
 
-                    await generateQR.SendEmailWithQRCode(ticket.Email, qrCodeBase64, authCode);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    var createdTicket = JsonSerializer.Deserialize<Ticket>(responseContent);
+                    ticket.EventName = createdTicket.EventName;
+                    ticket.EventDate = createdTicket.EventDate;
+                    ticket.Location = createdTicket.Location;
+
+                    Console.WriteLine("API Response Content: " + responseContent);
+                    //string eventDateString = ticket.EventDate?.ToString("yyyy-MM-dd HH:mm:ss") ?? "Date not available";
+
+
+                    await generateQR.SendEmailWithQRCode(ticket.Email, ticket.EventName, ticket.Location, ticket.EventDate,  qrCodeBase64, authCode);
                     Console.WriteLine("Email with QR Code sent to: " + ticket.Email);
+
+
 
                     if (response.IsSuccessStatusCode)
                     {

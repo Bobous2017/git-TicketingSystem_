@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem", "TicketingSystem.csproj", "{25CEBD35-D100-4EE0-AFF3-EB7CFC5F8DE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystemLibrary", "..\TicketingSystemLibrary\TicketingSystemLibrary.csproj", "{74579F1F-703F-4E07-AA96-84D3EA5574A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystemLibrary", "..\TicketingSystemLibrary\TicketingSystemLibrary.csproj", "{74579F1F-703F-4E07-AA96-84D3EA5574A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystemAPI", "..\TicketingSystemAPI\TicketingSystemAPI.csproj", "{D5D027D1-1340-4977-88AD-73E933A66C6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystemAPI", "..\TicketingSystemAPI\TicketingSystemAPI.csproj", "{D5D027D1-1340-4977-88AD-73E933A66C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystemApp", "..\TicketingSystemApp\TicketingSystemApp.csproj", "{54D4F924-BDF4-4B1F-B370-92461302AB57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{D5D027D1-1340-4977-88AD-73E933A66C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5D027D1-1340-4977-88AD-73E933A66C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5D027D1-1340-4977-88AD-73E933A66C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D4F924-BDF4-4B1F-B370-92461302AB57}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
