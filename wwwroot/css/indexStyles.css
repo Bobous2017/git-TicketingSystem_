@@ -1,0 +1,73 @@
+﻿body {
+    background: #202235;
+}
+/* CSS Styling */
+.custom-btn {
+    background-color: #008000; /* Example: green color to match the mockup */
+    color: #ffffff; /* White text */
+    padding: 10px 20px; /* Adjust padding */
+    border-radius: 12px; /* Rounded corners */
+    border: none; /* Remove any default borders */
+    text-decoration: none; /* Remove underline from links */
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    /* Additional shadow and spacing as needed */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    /* Hover Effect */
+    .custom-btn:hover {
+        background-color: #006400; /* Darker green for hover */
+        cursor: pointer;
+    }
+header .navbar {
+    background-color: #000000 !important;
+}
+
+/* CSS for Navbar Buttons */
+.navbar-btn {
+    background-color: #f0f0f0; /* Set the background color similar to your mockup */
+    color: #000000; /* Set the text color */
+    padding: 10px 20px; /* Padding to increase button size */
+    border-radius: 20px; /* Rounded edges to match the oval shape */
+    border: 2px solid #c2dcf4; /* Light border to match your background */
+    text-decoration: none; /* Remove underline from text */
+    font-weight: bold; /* Make text bold */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    margin: 5px; /* Add spacing between buttons */
+}
+
+    /* Hover Effect for Navbar Buttons */
+    .navbar-btn:hover {
+        background-color: #d0d0d0; /* Slightly darker color for hover */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+        cursor: pointer;
+    }
+
+
+.eventFrame {
+    margin-top: 70px;
+    /* margin-left: -90px; */
+    padding-bottom: 1rem !important;
+    border: aliceblue;
+    box-shadow: antiquewhite;
+    background: #ffffff;
+    border-radius: 30px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.imageEvent {
+    vertical-align: middle;
+    position: absolute;
+    top: 50px;
+    left: 620px;
+    z-index: -1;
+    width: 1120px;
+}
+

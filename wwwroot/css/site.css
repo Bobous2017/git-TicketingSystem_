@@ -20,3 +20,41 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* CSS for Navbar Buttons */
+.navbar-btn {
+    background-color: #f0f0f0; /* Set the background color similar to your mockup */
+    color: #000000; /* Set the text color */
+    padding: 10px 20px; /* Padding to increase button size */
+    border-radius: 20px; /* Rounded edges to match the oval shape */
+    border: 2px solid #c2dcf4; /* Light border to match your background */
+    text-decoration: none; /* Remove underline from text */
+    font-weight: bold; /* Make text bold */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    margin: 5px; /* Add spacing between buttons */
+}
+
+    /* Hover Effect for Navbar Buttons */
+    .navbar-btn:hover {
+        background-color: #d0d0d0; /* Slightly darker color for hover */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+        cursor: pointer;
+    }
+
+
+/*Color Delete Administrator*/
+@media (min-width: 576px) {
+    .col-sm-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+        color: aliceblue;
+    }
+}
+
+@media (min-width: 576px) {
+    .col-sm-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+        color: aliceblue;
+    }
+}

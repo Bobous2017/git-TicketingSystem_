@@ -1,6 +1,6 @@
 ﻿@model List<TicketingSystemLibrary.Models.Event>
-
-<h1>Event Page</h1>
+<div class="styled">
+@* <h1>Event Page</h1> *@
 <p>This is the event dashboard.</p>
 <h4>@ViewBag.ResponseMessage</h4>
 
@@ -66,7 +66,7 @@ else
         </tbody>
     </table>
 }
-
+</div>
 <script>
     function resetTableEvent() {
         window.location.href = "@Url.Action("Index", "EventControllerHttp")";

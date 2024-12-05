@@ -1,12 +1,14 @@
-﻿﻿@{
+﻿
+@{
     ViewData["Title"] = "Index Page";
 }
 
 
 @model List<TicketingSystemLibrary.Models.Event>
 
-<h2>Events</h2>
-<div class="events-list">
+<img class="imageEvent" src="~/lib/bgEvent.png" alt="bg Event">
+<div class="events-list eventFrame">
+    <h2 style="display:flex; margin:20px; padding-left:70px">Events</h2>
     <ul>
         @foreach (var eventObj in Model)
         {
@@ -16,7 +18,7 @@
                     Date: @eventObj.EventDate.ToString("yyyy-MM-dd") <br />
                     Location: @eventObj.Location <br />
                     <!-- Buy Ticket Button -->
-                    <a asp-controller="TicketControllerHttp" asp-action="Create" asp-route-eventId="@eventObj.EventID" class="btn btn-success">Buy Ticket</a>
+                    <a asp-controller="TicketControllerHttp" asp-action="Create" asp-route-eventId="@eventObj.EventID" class="btn btn-success ">Buy Ticket</a>
                 </div>
             </li>
         }

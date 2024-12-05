@@ -5,72 +5,73 @@
     var user = User as ClaimsPrincipal;
     var adminName = user?.FindFirst(ClaimTypes.Name)?.Value; // Get the logged-in Admin's name
 }
+<div class="styled">
+    @* <h1>Administrator Page</h1> *@
+    <p>This is the administrator dashboard.</p>
+    @if (!string.IsNullOrEmpty(adminName))
+    {
+        <h4>Welcome, @adminName!</h4> <!-- Display logged-in Admin's name -->
+    }
 
-<h1>Administrator Page</h1>
-<p>This is the administrator dashboard.</p>
-@if (!string.IsNullOrEmpty(adminName))
-{
-    <h4>Welcome, @adminName!</h4> <!-- Display logged-in Admin's name -->
-}
+    <h4>@ViewBag.ResponseMessage</h4>
 
-<h4>@ViewBag.ResponseMessage</h4>
+    <!-- Button to navigate back to the Index Page -->
+    <p>
+        <a href="~/Index" class="btn btn-secondary">Back to Home</a>
+    </p>
 
-<!-- Button to navigate back to the Index Page -->
-<p>
-    <a href="~/Index" class="btn btn-secondary">Back to Home</a>
-</p>
-
-<p>
-    <a asp-action="Create" class="btn btn-success">Create Administrator</a>
-    <a asp-action="Index" asp-controller="DoormanControllerHttp" class="btn btn-success">-> Doorman</a>
-    <a asp-action="Index" asp-controller="CustomerControllerHttp" class="btn btn-success">-> Customer</a>
-    <a asp-action="Index" asp-controller="EventControllerHttp" class="btn btn-success">-> Event</a>
-    <a asp-action="Index" asp-controller="TicketControllerHttp" class="btn btn-success">-> View Tickets</a>
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create Administrator</a>
+        <a asp-action="Index" asp-controller="DoormanControllerHttp" class="btn btn-success">-> Doorman</a>
+        <a asp-action="Index" asp-controller="CustomerControllerHttp" class="btn btn-success">-> Customer</a>
+        <a asp-action="Index" asp-controller="EventControllerHttp" class="btn btn-success">-> Event</a>
+        <a asp-action="Index" asp-controller="TicketControllerHttp" class="btn btn-success">-> View Tickets</a>
     
 
-</p>
+    </p>
 
-<!-- Input field to filter by ID -->
-<form asp-action="FilterById" method="get">
-    <label for="adminId">Enter Administrator ID:</label>
-    <input type="number" id="adminId" name="adminId" />
-    <button type="submit" class="btn btn-primary">Filter</button>
-    <button type="button" onclick="resetTableAdministrator()" class="btn btn-primary">Reset</button>
-</form>
+    <!-- Input field to filter by ID -->
+    <form asp-action="FilterById" method="get">
+        <label for="adminId">Enter Administrator ID:</label>
+        <input type="number" id="adminId" name="adminId" />
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <button type="button" onclick="resetTableAdministrator()" class="btn btn-primary">Reset</button>
+    </form>
 
-<h1>Administrator List</h1>
+    <h1>Administrator List</h1>
 
-@if (Model == null || !Model.Any())
-{
-    <p>No administrators found.</p>
-}
-else
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var admin in Model)
-            {
+    @if (Model == null || !Model.Any())
+    {
+        <p>No administrators found.</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@admin.AdminId</td>
-                    <td>@admin.Name</td>
-                    <td>@admin.Email</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@admin.AdminId" class="btn btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@admin.AdminId" class="btn btn-danger">Delete</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var admin in Model)
+                {
+                    <tr>
+                        <td>@admin.AdminId</td>
+                        <td>@admin.Name</td>
+                        <td>@admin.Email</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@admin.AdminId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@admin.AdminId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 <script>
     function resetTableAdministrator() {
         window.location.href = "/Administrator";

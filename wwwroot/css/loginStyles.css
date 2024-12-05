@@ -1,0 +1,19 @@
+﻿body {
+    background: #202235;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.imageEventLogin {
+    vertical-align: middle;
+    position: absolute;
+    top: -120px;
+    left: 180px;
+    z-index: -1;
+    width: 1550px;
+    /* backdrop-filter: blur(168px); */
+    filter: blur(8px);
+}
+

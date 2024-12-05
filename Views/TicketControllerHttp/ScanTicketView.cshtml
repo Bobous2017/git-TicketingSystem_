@@ -5,7 +5,7 @@
     <a asp-action="Index" asp-controller="AdministratorControllerHttp" class="btn btn-secondary">Back to Administrator</a>
     <a asp-action="Index" asp-controller="TicketControllerHttp" class="btn btn-secondary">Back to Ticket</a>
 </p>
-
+<div class="styled">
 <h1>All Ticket Scan Details</h1>
 
 <!-- Table to display scanned ticket details -->
@@ -20,7 +20,7 @@
             <th>Scan Time</th>
             <th>QR Code</th>
             <th>Auth Code</th>
-            <th>Is Used</th>
+           @*  <th>Is Used</th> *@
         </tr>
     </thead>
     <tbody>
@@ -44,8 +44,9 @@
                     }
                 </td>
                 <td>@ticket.AuthCode</td>
-                <td>@(ticket.IsUsed.HasValue && ticket.IsUsed.Value ? "Yes" : "No")</td> <!-- Fixed nullable bool -->
+                @* <td>@(ticket.IsUsed.HasValue && ticket.IsUsed.Value ? "Yes" : "No")</td> <!-- Fixed nullable bool --> *@
             </tr>
         }
     </tbody>
 </table>
+</div>

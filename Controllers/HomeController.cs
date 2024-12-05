@@ -157,5 +157,20 @@ namespace TicketingSystemAPI.Controllers
         }
 
 
+        [Route("")]
+        [Route("Support")]
+        public IActionResult Support()
+        {
+            return View();
+        }
+
+        [Route("")]
+        [Route("About")]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
     }
 }

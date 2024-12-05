@@ -1,6 +1,7 @@
 ﻿@model List<TicketingSystemLibrary.Models.Doorman>
 
-<h1>Doorman Page</h1>
+@* <h1>Doorman Page</h1> *@
+<div class="styled">
 <p>This is the doorman dashboard.</p>
 <h4>@ViewBag.ResponseMessage</h4>
 
@@ -54,7 +55,7 @@ else
         </tbody>
     </table>
 }
-
+</div>
 <script>
     function resetTableDoorman() {
         window.location.href = "@Url.Action("Index", "DoormanControllerHttp")";

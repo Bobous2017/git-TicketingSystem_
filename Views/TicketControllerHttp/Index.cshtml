@@ -5,6 +5,7 @@
     <a asp-action="TicketsDetails" asp-controller="TicketControllerHttp" class="btn btn-primary">View All Ticket Details</a>
     <a asp-action="ScanTicketView" asp-controller="TicketControllerHttp" class="btn btn-primary">View Tickets Scaned</a>
 </p>
+<div class="styled">
 <h1>All Tickets</h1>
 <!-- Filter Section -->
 <form method="get" id="filterForm">
@@ -18,6 +19,7 @@
         <button type="submit" class="btn btn-primary">Filter</button>
     </div>
 </form>
+<br>
 @{
     // Get the value from the query string to filter tickets
     var filter = ViewContext.HttpContext.Request.Query["isUsedFilter"].ToString();
@@ -88,6 +90,6 @@
     </tbody>
 </table>
 
-
+</div>
 
 

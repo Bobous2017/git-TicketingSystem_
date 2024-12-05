@@ -7,27 +7,36 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TicketingSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/indexStyles.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/privacyStyles.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/loginStyles.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">TicketingSystem</a>
+                <a class="navbar-brand navbar-btn" asp-controller="Home" asp-action="Index">TicketingSystem</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btn text-dark navbar-btn" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="btn text-dark navbar-btn" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a id="AdministratorBtn" href="/Administrator" class="btn btn-primary" style="display:none">Administrator</a>
+                            <a id="AdministratorBtn" href="/Administrator" class="btn navbar-btn" style="display:none">Administrator</a>
                         </li>
                     </ul>
+                    <nav>
+                       
+                        <a  class="btn navbar-btn" asp-controller="Home" asp-action="Index">Buy tickets</a>
+                        <a class="btn navbar-btn" asp-controller="Home" asp-action="Support">Support</a>
+                        <a class="btn navbar-btn" asp-controller="Home" asp-action="About">About</a>
+                    </nav>
 
                     <!-- Login and Logout Buttons -->
                   @*   <div class="d-flex">
@@ -37,14 +46,14 @@
                     <div class="d-flex">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <a id="logoutBtn" asp-controller="Home" asp-action="Logout" class="btn btn-primary ml-auto">Logout</a>
+                            <a id="logoutBtn" asp-controller="Home" asp-action="Logout" class="navbar-btn ml-auto">Logout</a>
                         }
                         else
                         {
-                            <a id="loginBtn" asp-controller="Home" asp-action="Login" class="btn btn-primary ml-auto">Login</a>
+                            <a id="loginBtn" asp-controller="Home" asp-action="Login" class="navbar-btn ml-auto">Login</a>
                         }
                     </div>
-                    <a id="AdministratorBtn" href="/Administrator" class="btn btn-primary" style="display:none">Administrator</a>
+                    <a id="AdministratorBtn" href="/Administrator" class="navbar-btn" style="display:none">Administrator</a>
 
                 </div>
             </div>
@@ -58,10 +67,14 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - TicketingSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container d-flex justify-content-center">
+            &copy; December 2, 2024 - TicketingSystem by &nbsp;|&nbsp;
+            <a href="" style="color:white">bobx0266@edu.sde.dk</a>
+            &nbsp;|&nbsp;
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
