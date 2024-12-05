@@ -1,6 +1,7 @@
 ﻿@model List<TicketingSystemLibrary.Models.Customer>
 
-<h1>Customer Page</h1>
+@* <h1>Customer Page</h1> *@
+<div class="styled">
 <p>This is the customer dashboard.</p>
 <h4>@ViewBag.ResponseMessage</h4>
 
@@ -12,7 +13,7 @@
 <p>
     <a asp-action="Create" class="btn btn-success">Create Customer</a>
 </p>
-
+<div class="styled">
 <!-- Input field to filter by ID -->
 <form asp-action="FilterById" method="get">
     <label for="customerId">Enter Customer ID:</label>
@@ -56,7 +57,7 @@ else
         </tbody>
     </table>
 }
-
+</div>
 <script>
     function resetTableCustomer() {
         window.location.href = "@Url.Action("Index", "CustomerControllerHttp")";

@@ -1,0 +1,15 @@
+﻿.styled h2, 
+.styled h1 {
+    text-align: center;
+    color: #0077ce;
+}
+
+/* privacyStyles.css, loginStyles.css, etc. */
+.styled p,
+.styled li,
+.styled th,
+.styled td,
+.styled label,
+.styled h4 {
+    color: #ffffff;
+}
