@@ -13,7 +13,6 @@ namespace TicketingSystem.Controllers
     public class DoormanControllerHttp : Controller
     {
         private readonly HttpClient _httpClient;
-
         public DoormanControllerHttp(HttpClient httpClient)
         {
             var handler = new HttpClientHandler

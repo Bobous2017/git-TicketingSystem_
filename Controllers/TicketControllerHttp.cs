@@ -230,7 +230,6 @@ namespace TicketingSystem.Controllers
         }
 
 
-
         [Route("Success")]   //------------------------------------------------------------------Website Tested  Ok
         public IActionResult Success()
         {

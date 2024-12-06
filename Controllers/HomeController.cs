@@ -140,7 +140,6 @@ namespace TicketingSystemAPI.Controllers
             }
         }
 
-
         [Route("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -148,14 +147,12 @@ namespace TicketingSystemAPI.Controllers
             return RedirectToAction("Index");
         }
 
-
         [Route("")]
         [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
-
 
         [Route("")]
         [Route("Support")]

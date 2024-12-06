@@ -13,7 +13,6 @@ namespace TicketingSystem.Controllers
     public class AdministratorControllerHttp : Controller
     {
         private readonly HttpClient _httpClient;
-
         public AdministratorControllerHttp(HttpClient httpClient)
         {
             
@@ -28,7 +27,6 @@ namespace TicketingSystem.Controllers
                 BaseAddress = new Uri($"http://{NetworkUtils.GlobalIPAddress()}:5000/")  // Using HTTPS here
             };
         }
-
         //GET Administrator -> GetAllAdministrators()  via http. GET Endpoint :  api/administrators
         [HttpGet("")] //-----------------------------------------------------------------------------------------------------Website Tested Ok
         public async Task<IActionResult> Index()
